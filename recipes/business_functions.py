@@ -2,21 +2,30 @@ from datetime import datetime
 
 from django.shortcuts import get_object_or_404
 
-from .models import Ingredient
+from .models import Ingredient, Recipe
 
 
-def file_create(ingredients, username):
-    filename = f'{datetime.now().strftime("%d.%m.%y %H.%M.%S")} {username} purchase\'s.txt'
+def get_filters_recipes(request, *args, **kwargs):
+    filters = request.GET.getlist('filters')
+    if filters:
+        recipes = Recipe.objects.filter(tags__key__in=filters).filter(**kwargs).distinct()
+    else:
+        recipes = Recipe.objects.filter(**kwargs).all()
 
-    with open(f'files/{filename}', 'w') as tmp:
-        for ingredient in ingredients:
-            ingredient_title = ingredient['ingredient__title'][0].upper() + ingredient['ingredient__title'][1:]
-            ingredient_dimension = ingredient['ingredient__dimension']
-            quantity_sum = ingredient['quantity__sum']
+    return filters, recipes
 
-            tmp_name = f'• {ingredient_title} ({ingredient_dimension}) — {quantity_sum}\n'
-            tmp.write(tmp_name)
-    return filename
+
+def get_file_content(ingredients, user):
+    filename = f'Shopping list from {datetime.now().strftime("%d.%m.%y %H.%M.%S")}.txt'
+
+    file_content = ''
+    for ingredient in ingredients:
+        ingredient_title = ingredient['ingredient__title'][0].upper() + ingredient['ingredient__title'][1:]
+        ingredient_dimension = ingredient['ingredient__dimension']
+        quantity_sum = ingredient['quantity__sum']
+
+        file_content += f'• {ingredient_title} ({ingredient_dimension}) — {quantity_sum}\n'
+    return filename, file_content
 
 
 def get_dict_ingredient(request_obj):

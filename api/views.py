@@ -9,11 +9,11 @@ from users.models import Follow
 
 
 def check_ingredient(request):
-    query = request.GET.get("query").lower()
+    query = request.GET.get("query").lower()[:-1]
     
     ingredients = Ingredient.objects.filter(
         title__icontains=query).values("title", "dimension").order_by('title')
-    
+
     return JsonResponse(list(ingredients), safe=False)
 
 
@@ -50,6 +50,7 @@ def add_favorites(request):
     Favorite.objects.get_or_create(user=user, recipe=recipe)
 
     return JsonResponse({"success": True})
+
 
 @login_required
 def remove_favorites(request, recipe_id):

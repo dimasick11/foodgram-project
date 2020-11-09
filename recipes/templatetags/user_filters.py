@@ -5,9 +5,11 @@ from recipes.models import Favorite, Purchase
 
 register = template.Library()
 
+
 @register.filter
 def addclass(field, css):
     return field.as_widget(attrs={'class': css})
+
 
 @register.filter(name='filter_recipes')
 def filter_recipes(request, tag):
@@ -22,10 +24,12 @@ def filter_recipes(request, tag):
     
     return request_add.urlencode()
 
+
 @register.filter(name='check_following')
 def check_following(author, user):
-    rezult = Follow.objects.filter(author=author.id, user=user.id).exists()
-    return rezult
+    result = Follow.objects.filter(author=author.id, user=user.id).exists()
+    return result
+
 
 @register.filter(name='get_suffix_recipe')
 def get_suffix_recipe(amount):
@@ -36,17 +40,20 @@ def get_suffix_recipe(amount):
         return f'{tmp} рецепта'
     return f'{tmp} рецептов'
 
+
 @register.filter(name='check_favorites')
 def check_favorites(user, recipe):
-    rezult = Favorite.objects.filter(user=user, recipe=recipe).exists()
-    return rezult
+    result = Favorite.objects.filter(user=user, recipe=recipe).exists()
+    return result
+
 
 @register.filter(name='check_purchase')
 def check_purchase(user, recipe):
-    rezult = Purchase.objects.filter(user=user, recipe=recipe).exists()
-    return rezult
+    result = Purchase.objects.filter(user=user, recipe=recipe).exists()
+    return result
+
 
 @register.filter(name='get_count_purchase')
 def get_count_purchase(user):
-    rezult = Purchase.objects.filter(user=user).count()
-    return rezult
+    result = Purchase.objects.filter(user=user).count()
+    return result

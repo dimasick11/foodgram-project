@@ -17,15 +17,19 @@ urlpatterns = [
 
 
 urlpatterns += [
-        path('about-author/', views.flatpage, {'url': '/about-author/'}, name='terms'),
-        path('about-spec/', views.flatpage, {'url': '/about-spec/'}, name='terms'),
+        path('about/about-author/', views.flatpage,
+             {'url': '/about-author/'}, name='about-author'),
+        path('about/about-spec/', views.flatpage,
+             {'url': '/about-spec/'}, name='about-spec'),
 ]
 
 
 if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL,
+                          document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.STATIC_URL,
+                          document_root=settings.STATIC_ROOT)
 
 
-handler404 = 'recipes.views.page_not_found' # noqa
-handler500 = 'recipes.views.server_error' # noqa    
+handler404 = 'foodgram.views.page_not_found' # noqa
+handler500 = 'foodgram.views.server_error' # noqa

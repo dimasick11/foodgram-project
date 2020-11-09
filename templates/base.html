@@ -1,29 +1,29 @@
 <!doctype html>
 <html>
-    <head>
-	    <meta charset="UTF-8">
-	    <meta name="viewport"
-		content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-	    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-	    <title>{% block title %}Рецепты{% endblock %}</title>
-	    {% block static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{% block title %}Рецепты{% endblock %}</title>
+    {% block static %}
 
-	    {% endblock %}
-    </head>
-    
-    <body>
-        {% include 'header.html' %}
+    {% endblock %}
+</head>
 
-        <main class="main container">
-            {% block content %}
+<body>
+{% include 'header.html' %}
 
-            {% endblock content %}
-	    </main>
+<main class="main container">
+    {% block content %}
 
-        {% include 'footer.html' %}
+    {% endblock content %}
+</main>
 
-        {% block script %}
+{% include 'footer.html' %}
 
-        {% endblock %}
-    </body>
+{% block script %}
+
+{% endblock %}
+</body>
 </html>
