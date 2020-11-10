@@ -1,17 +1,18 @@
 from django.contrib import admin
 
-
 from .models import Recipe, Ingredient, Amount, Tag, Favorite, Purchase
 
 
 class AmountInline(admin.TabularInline):
     """Для связывания ингредиентов и колличества"""
     model = Amount
-    
+
+
 @admin.register(Tag)
 class TagAdmin(admin.ModelAdmin):
     list_display = ('key', 'value')
-    
+
+
 @admin.register(Recipe)
 class RecipeAdmin(admin.ModelAdmin):
     list_display = ('title', 'pub_date', 'author')
@@ -28,8 +29,8 @@ class RecipeAdmin(admin.ModelAdmin):
 class IngredientAdmin(admin.ModelAdmin):
     list_display = ('title', 'dimension')
     search_fields = ('title',)
-    
-    
+
+
 @admin.register(Amount)
 class IngredientAdmin(admin.ModelAdmin):
     list_display = ('recipe', 'ingredient', 'quantity')
@@ -40,8 +41,8 @@ class IngredientAdmin(admin.ModelAdmin):
 class FavoriteAdmin(admin.ModelAdmin):
     list_display = ('user', 'recipe')
     search_fields = ('user',)
-    
-    
+
+
 @admin.register(Purchase)
 class PurchaseAdmin(admin.ModelAdmin):
     list_display = ('user', 'recipe')

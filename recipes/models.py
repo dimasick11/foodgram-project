@@ -14,7 +14,7 @@ class Tag(models.Model):
 class Recipe(models.Model):
     """Рецепты"""
     author = models.ForeignKey(User, on_delete=models.CASCADE,
-                               related_name='recipe', verbose_name='Автор')
+                               related_name='recipes', verbose_name='Автор')
     title = models.CharField(max_length=256, verbose_name='Наименование')
     image = models.ImageField(upload_to='recipes/',
                               blank=True, null=True, verbose_name='Изображение')
@@ -56,14 +56,14 @@ class Amount(models.Model):
 class Favorite(models.Model):
     """Рецепты избранные"""
     user = models.ForeignKey(User, on_delete=models.CASCADE,
-                             related_name='favorite', verbose_name='Пользователь')
+                             related_name='favorites', verbose_name='Пользователь')
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE,
-                               related_name='favorite', verbose_name='Понравившейся рецепт')
+                               related_name='favorites', verbose_name='Понравившейся рецепт')
     
     
 class Purchase(models.Model):
     """Рецетов на покупки"""
     user = models.ForeignKey(User, on_delete=models.CASCADE,
-                             related_name='purchase', verbose_name='Пользователь')
+                             related_name='purchases', verbose_name='Пользователь')
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE,
-                               related_name='purchase', verbose_name='Рецепт')
+                               related_name='purchases', verbose_name='Рецепт')

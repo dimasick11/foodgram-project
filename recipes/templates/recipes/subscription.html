@@ -22,7 +22,7 @@
                 </div>
                 <div class="card-user__body">
                     <ul class="card-user__items">
-                        {% for recipe in author.recipe.all.order_by|dictsortreversed:"pub_date"|slice:":3" %}
+                        {% for recipe in author.recipes.all.order_by|dictsortreversed:"pub_date"|slice:":3" %}
                             <li class="card-user__item">
                                 <div class="recipe">
                                     {% load thumbnail %}
@@ -35,10 +35,10 @@
                             </li>
                         {% endfor %}
 
-                        {% if author.recipe.all.count > 3 %}
+                        {% if author.recipes.all.count > 3 %}
                             <li class="card-user__item">
                                 <a href="{% url 'profile' author.username %}"
-                                   class="card-user__link link">Еще {{ author.recipe.all.count|get_suffix_recipe }}...</a>
+                                   class="card-user__link link">Еще {{ author.recipes.all.count|get_suffix_recipe }}...</a>
                             </li>
                         {% endif %}
                     </ul>

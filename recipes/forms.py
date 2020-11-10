@@ -5,7 +5,8 @@ from .models import Recipe, Tag
 
 
 class RecipeForm(ModelForm):
-    tags = ModelMultipleChoiceField(queryset=Tag.objects.all(), to_field_name='key')
+    tags = ModelMultipleChoiceField(queryset=Tag.objects.all(),
+                                    to_field_name='key')
 
     class Meta:
         model = Recipe

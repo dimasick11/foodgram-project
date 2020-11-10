@@ -49,7 +49,7 @@ def profile(request, username):
 @login_required
 def favorite(request):
     user = request.user
-    filters, recipes = get_filters_recipes(request, favorite__user=user)
+    filters, recipes = get_filters_recipes(request, favorites__user=user)
 
     tags = Tag.objects.all()
 
@@ -142,7 +142,7 @@ def edit_recipe(request, username, recipe_id):
 
     ingredients = Amount.objects.filter(recipe=recipe_id)
 
-    active_tags = [tag for tag in recipe.tags.values_list('key', flat=True) if tag]
+    active_tags = list(recipe.tags.values_list('key', flat=True))
 
     context = {'form': form,
                'recipe': recipe,
@@ -164,7 +164,7 @@ def remove_recipe(request, recipe_id):
 def subscriptions(request):
     user = request.user
     authors = User.objects.filter(
-        following__user=user).prefetch_related('recipe').order_by('-username')
+        following__user=user).prefetch_related('recipes').order_by('-username')
     paginator = Paginator(authors, 3)
     page_number = request.GET.get('page')
     page = paginator.get_page(page_number)
@@ -179,8 +179,8 @@ def get_purchase(request):
     user = request.user
 
     purchases_id = Purchase.objects.filter(user=user).values_list('recipe')
-    ingredients = Amount.objects.filter(recipe__in=purchases_id) \
-        .prefetch_related('ingredient').values(
+    ingredients = Amount.objects.filter(
+        recipe__in=purchases_id).prefetch_related('ingredient').values(
         'ingredient__title', 'ingredient__dimension').annotate(Sum('quantity'))
 
     filename, file_content = get_file_content(ingredients, user)
