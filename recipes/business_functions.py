@@ -8,7 +8,8 @@ from .models import Ingredient, Recipe
 def get_filters_recipes(request, *args, **kwargs):
     filters = request.GET.getlist('filters')
     if filters:
-        recipes = Recipe.objects.filter(tags__key__in=filters).filter(**kwargs).distinct()
+        recipes = Recipe.objects.filter(
+            tags__key__in=filters).filter(**kwargs).distinct()
     else:
         recipes = Recipe.objects.filter(**kwargs).all()
 
@@ -20,7 +21,9 @@ def get_file_content(ingredients, user):
 
     file_content = ''
     for ingredient in ingredients:
-        ingredient_title = ingredient['ingredient__title'][0].upper() + ingredient['ingredient__title'][1:]
+        ingredient_title = ingredient[
+            'ingredient__title'][0].upper() + ingredient[
+                'ingredient__title'][1:]
         ingredient_dimension = ingredient['ingredient__dimension']
         quantity_sum = ingredient['quantity__sum']
 
@@ -40,7 +43,7 @@ def get_dict_ingredient(request_obj):
 
 def get_list_ingredients():
     with open('ingredients.csv') as tmp:
-        for l in tmp:
-            ingr = l.replace('\n', '').split(',')
+        for el in tmp:
+            ingr = el.replace('\n', '').split(',')
             mod = Ingredient(title=ingr[0], dimension=ingr[1])
             mod.save()

@@ -5,7 +5,9 @@ from django.db.models import Sum
 
 from .models import Recipe, Amount, User, Tag, Purchase
 from .forms import RecipeForm
-from .business_functions import get_file_content, get_dict_ingredient, get_filters_recipes
+from .business_functions import (get_file_content,
+                                 get_dict_ingredient,
+                                 get_filters_recipes)
 
 
 def index(request):
@@ -109,7 +111,9 @@ def create_recipe(request):
         recipe.tags.set(form.cleaned_data['tags'])
 
         for ingredient, value in ingredients.items():
-            Amount.objects.create(ingredient=ingredient, recipe=recipe, quantity=value)
+            Amount.objects.create(ingredient=ingredient,
+                                  recipe=recipe,
+                                  quantity=value)
 
         return redirect('index')
 
@@ -136,7 +140,9 @@ def edit_recipe(request, username, recipe_id):
         recipe.tags.set(form.cleaned_data['tags'])
         Amount.objects.filter(recipe_id=recipe.id).delete()
         for ingredient, value in ingredients.items():
-            Amount.objects.create(ingredient=ingredient, recipe=recipe, quantity=value)
+            Amount.objects.create(ingredient=ingredient,
+                                  recipe=recipe,
+                                  quantity=value)
 
         return redirect('recipe', username=username, recipe_id=recipe_id)
 

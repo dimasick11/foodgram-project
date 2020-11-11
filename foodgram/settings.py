@@ -26,7 +26,7 @@ SECRET_KEY = '1x_ipgi!m03l^5dt^!2e1y08)954afsztav)8@4lxx&8asxx=t'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["localhost", "127.0.0.1", "[::1]", "testserver",]
+ALLOWED_HOSTS = ["localhost", "127.0.0.1", "[::1]", "testserver", ]
 
 SITE_ID = 1
 

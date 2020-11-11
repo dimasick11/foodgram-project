@@ -32,7 +32,7 @@ class IngredientAdmin(admin.ModelAdmin):
 
 
 @admin.register(Amount)
-class IngredientAdmin(admin.ModelAdmin):
+class AmountAdmin(admin.ModelAdmin):
     list_display = ('recipe', 'ingredient', 'quantity')
     search_fields = ('recipe',)
 
