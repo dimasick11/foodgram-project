@@ -8,7 +8,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Set up Python 
+    - name: Set up Python
       uses: actions/setup-python@v2
       with:
         python-version: 3.8
@@ -20,9 +20,7 @@ jobs:
         pip install -r requirements.txt
     - name: Lint with flake8
       run: flake8 . --config=.flake8
- 
-    - name: Test with pytest
-      run: pytest
+
 
   push_to_docker_hub:
     name: Push Docker image to Docker Hub
