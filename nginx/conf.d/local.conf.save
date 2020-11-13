@@ -1,0 +1,27 @@
+upstream backend {
+        server web:8020;
+    }
+
+server {
+    # следи за портом 80 на сервере с IP <ваш-ip>
+    listen 80;
+    # listen [::]:80;
+    server_name localhost 127.0.0.1  178.154.246.166;
+
+    # если в адресе запроса есть аргумент '/static/' - верни файл из директории static/
+    location /static/ {
+        root /;
+    }
+        
+        # медиа файлы
+    location /media/ {
+        root /home/final_project/foodgram-project/static;
+    }
+        
+    # любой другой запрос передай серверу Gunicorn
+    location / {
+       # include proxy_params;
+        # передавать запросы нужно на внутренний IP на порт 8000
+        proxy_pass http://backend;
+    }
+} 
